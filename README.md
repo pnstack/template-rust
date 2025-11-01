@@ -194,9 +194,12 @@ For testing with in-memory database:
 
 The project includes comprehensive GitHub Actions workflows:
 
-- **CI**: Build, test, lint, and format checks on multiple platforms
-- **Security**: Weekly security audits with `cargo audit`
-- **Release**: Automated binary releases for Linux, macOS, and Windows
+- **CI** (`ci.yml`): Build, test, lint, and format checks on multiple platforms (Linux, macOS, Windows)
+- **Security** (`security.yml`): Weekly security audits with `cargo audit`
+- **Release** (`release.yml`): Automated binary releases for Linux, macOS, and Windows on version tags
+- **Docker** (`docker.yml`): Docker image build testing and docker-compose validation
+
+All workflows run automatically on push and pull requests to ensure code quality and security.
 
 ## Contributing
 
