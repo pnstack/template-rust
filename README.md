@@ -11,8 +11,13 @@ A Rust project template featuring a todo application with SQLite database and te
 - 🚀 CI/CD with GitHub Actions
 - 📦 Cross-platform releases
 - 🔒 Security auditing
+- 🐳 Docker and Docker Compose support
+- ❄️ Nix flakes for reproducible environments
+- 📦 Devcontainer configuration for GitHub Codespaces
 
 ## Installation
+
+> **💡 Quick Start**: See [SETUP.md](SETUP.md) for detailed setup instructions using Docker, Nix, Codespaces, or local development.
 
 ### From Source
 
@@ -25,6 +30,33 @@ cargo build --release
 ### From Releases
 
 Download the latest binary from the [Releases](https://github.com/pnstack/template-rust/releases) page.
+
+### With Docker
+
+```bash
+# Build the image
+docker build -t template-rust:latest .
+
+# Run with interactive TUI
+docker run --rm -it -v $(pwd)/data:/app/data template-rust:latest tui
+
+# Or use Docker Compose
+docker compose up
+```
+
+### With Nix
+
+```bash
+# Enter development environment
+nix develop
+
+# Or run directly
+nix run
+```
+
+### With GitHub Codespaces
+
+Click the "Code" button on GitHub and select "Create codespace on main" - everything is pre-configured!
 
 ## Usage
 
@@ -93,15 +125,28 @@ template-rust/
 
 ## Development
 
+> **📚 Full Setup Guide**: See [SETUP.md](SETUP.md) for comprehensive development environment setup instructions.
+
 ### Prerequisites
 
-- Rust 1.70 or later
-- SQLite3
+Choose your preferred development method:
+
+- **Local**: Rust 1.70 or later, SQLite3
+- **Docker**: Docker 20.10+ and Docker Compose
+- **Nix**: Nix package manager with flakes enabled
+- **Codespaces**: Just a GitHub account!
 
 ### Building
 
 ```bash
+# Local
 cargo build
+
+# Docker
+docker compose up --build
+
+# Nix
+nix build
 ```
 
 ### Running Tests
@@ -121,6 +166,15 @@ cargo clippy -- -D warnings
 ```bash
 cargo fmt
 ```
+
+### Development Environments
+
+The project provides multiple development environment options:
+
+- **Docker Compose**: `docker compose up dev` - Containerized development with live code mounting
+- **Nix Flakes**: `nix develop` - Reproducible environment with all dependencies
+- **Devcontainer**: Open in VS Code or GitHub Codespaces - Fully configured IDE
+- **Traditional**: Local Rust installation with cargo
 
 ## Database
 
