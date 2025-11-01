@@ -16,7 +16,6 @@ pkgs.mkShell {
 
     # Additional development tools
     git
-    
   ] ++ lib.optionals stdenv.isDarwin [
     # macOS specific dependencies
     darwin.apple_sdk.frameworks.Security

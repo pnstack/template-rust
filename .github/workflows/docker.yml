@@ -27,7 +27,7 @@ jobs:
     
     - name: Test Docker image
       run: |
-        docker run --rm template-rust:test --version || echo "Version command not available"
+        docker run --rm template-rust:test --version || echo "Application does not support --version flag"
         docker run --rm template-rust:test --help
 
   docker-compose:
