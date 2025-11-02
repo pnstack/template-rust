@@ -2,47 +2,26 @@ name: Docker Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop
+      - "feature/**"
+      - "hotfix/**"
+    tags:
+      - "v*.*.*"
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches:
+      - main
+      - develop
 
 jobs:
-  docker-build:
-    name: Docker Build Test
+  docker:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    
-    - name: Build Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: false
-        load: true 
-        tags: template-rust:test
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-    
-    - name: Test Docker image
-      run: |
-        docker run --rm template-rust:test --version || echo "Application does not support --version flag"
-        docker run --rm template-rust:test --help
-
-  docker-compose:
-    name: Docker Compose Validation
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Validate docker-compose.yml
-      run: docker compose config > /dev/null
+      - uses: pnstack/actions/docker-publish@main
+        with:
+          platforms: linux/amd64,linux/arm64
+          dockerfile: Dockerfile
+          context: .
+          push_enabled: true
+          registry: ghcr.io
